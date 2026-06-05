@@ -784,7 +784,15 @@ function goTab(name){
 function showModal(h){document.getElementById("modalBox").innerHTML=h;document.getElementById("modalBg").classList.remove("hidden");}
 function closeModal(){document.getElementById("modalBg").classList.add("hidden");}
 function bgClick(e){if(e.target.id==="modalBg")closeModal();}
-window.onload = function(){ document.addEventListener("DOMContentLoaded", function(){ initLogin(); }); };
+
+// Bulletproof initialization
+(function tryInit(){
+  try{
+    var sel=document.getElementById("loginUser");
+    if(!sel){ setTimeout(tryInit,100); return; }
+    initLogin();
+  }catch(e){ setTimeout(tryInit,200); }
+})();
 </script>
 </body>
 </html>
