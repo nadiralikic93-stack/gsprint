@@ -784,7 +784,7 @@ function goTab(name){
 function showModal(h){document.getElementById("modalBox").innerHTML=h;document.getElementById("modalBg").classList.remove("hidden");}
 function closeModal(){document.getElementById("modalBg").classList.add("hidden");}
 function bgClick(e){if(e.target.id==="modalBg")closeModal();}
-window.onload = function(){ initLogin(); };
+window.onload = function(){ document.addEventListener("DOMContentLoaded", function(){ initLogin(); }); };
 </script>
 </body>
 </html>
