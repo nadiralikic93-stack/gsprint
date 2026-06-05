@@ -300,23 +300,25 @@ async function loadAll(){
 
 // ── LOGIN ─────────────────────────────────────────────────────────────────────
 function initLogin(){
+  try{
   const sel=document.getElementById("loginUser");
   const groups=[
-    {lbl:"— Uprava —",        roles:["direktor","admin"]},
-    {lbl:"— Tehnologija —",   roles:["tehnolog"]},
-    {lbl:"— DTP Priprema —",  roles:["dtp"]},
-    {lbl:"— Komercijala —",   roles:["komercijala"]},
-    {lbl:"— Skladište —",     roles:["skladiste"]},
-    {lbl:"— Transport —",     roles:["transport"]},
-    {lbl:"— Proizvodnja —",   roles:["radnik"]},
+    {lbl:"Uprava",        roles:["direktor","admin"]},
+    {lbl:"Tehnologija",   roles:["tehnolog"]},
+    {lbl:"DTP Priprema",  roles:["dtp"]},
+    {lbl:"Komercijala",   roles:["komercijala"]},
+    {lbl:"Skladiste",     roles:["skladiste"]},
+    {lbl:"Transport",     roles:["transport"]},
+    {lbl:"Proizvodnja",   roles:["radnik"]},
   ];
   groups.forEach(g=>{
-    const m=USERS.filter(u=>g.roles.includes(u.role)).sort((a,b)=>a.name.localeCompare(b.name));
+    const m=USERS.filter(u=>g.roles.includes(u.role)).sort((a,b)=>a.name>b.name?1:-1);
     if(!m.length)return;
-    const og=document.createElement("optgroup");og.label=g.lbl;
+    const og=document.createElement("optgroup");og.label="--- "+g.lbl+" ---";
     m.forEach(u=>{const o=document.createElement("option");o.value=u.name;o.textContent=u.name;og.appendChild(o);});
     sel.appendChild(og);
   });
+  }catch(e){console.error("initLogin error:",e);}
   const np=document.getElementById("numpad");
   [1,2,3,4,5,6,7,8,9,"✕",0,"⌫"].forEach(k=>{
     const b=document.createElement("button");b.textContent=k;b.onclick=()=>pinPress(k);np.appendChild(b);
